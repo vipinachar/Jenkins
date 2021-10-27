@@ -6,7 +6,7 @@ metadata:
                 app: webapp-django
                 tier: backend
 spec:
-        replicas: 1
+        replicas: 2
         selector:
                 matchLabels:
                         app: webapp-django
@@ -25,12 +25,14 @@ spec:
 ---
 apiVersion: v1
 kind: Service
-metadata:
-  name: webapp-django
+metadata: 
+        name: webapp-django
 spec:
-  selector:
-    app: webapp-django
-  ports:
-  - port: 8000
-    targetPort: 8000
-  type: NodePort
+        selector:
+                app: webapp-django
+                tier: backend
+        ports:
+        - port: 8000
+          nodePort: 30080
+          name: djangoport
+        type: NodePort
