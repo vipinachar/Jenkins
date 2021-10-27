@@ -19,7 +19,7 @@ from api.views import AppUserApi,listAPIView,UpdateUserAPIView
 
 
 urlpatterns = [
-    path('adminsss/', admin.site.urls),
+    path('admins/', admin.site.urls),
     path('api/v1/users/',AppUserApi.as_view()),
     path('api/v1/users/<str:email>/',AppUserApi.as_view()),
     path('list/',listAPIView.as_view()),
