@@ -1,37 +1,38 @@
-apiVersion: v1
-kind: ReplicationController
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: frontend
-  labels:
-    name: frontend
+        name: djangobackend
+        labels:
+                app: webapp-django
+                tier: backend
 spec:
-  replicas: 3
-  template:
-    metadata:
-      labels:
-        name: frontend
-    spec:
-      containers:
-      - name: guestbook
-        # Replace  with your project ID or use `make template`
-        image: waprin/my-guestbook-app 
-
-        # This setting makes nodes pull the docker image every time before
-        # starting the pod. This is useful when debugging, but should be turned
-        # off in production.
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 8000
+        replicas: 1
+        selector:
+                matchLabels:
+                        app: webapp-django
+                        tier: backend
+        template:
+                metadata:
+                        labels:
+                                app: webapp-django
+                                tier: backend
+                spec:
+                        containers: 
+                        - name: django
+                          image: iad.ocir.io/idbmr8mmrb5k/backend:24
+                          ports:
+                           - containerPort: 8000
+---
 apiVersion: v1
 kind: Service
-metadata:
-  name: frontend
-  labels:
-    name: frontend
+metadata: 
+        name: webapp-django
 spec:
-  type: LoadBalancer
-  ports:
-  - port: 80
-    targetPort: 8000
-  selector:
-    name: frontend
+        selector:
+                app: webapp-django
+                tier: backend
+        ports:
+        - port: 8000
+          nodePort: 30080
+          name: djangoport
+        type: NodePort
