@@ -6,7 +6,7 @@ metadata:
                 app: webapp-django
                 tier: backend
 spec:
-        replicas: 2
+        replicas: 5
         selector:
                 matchLabels:
                         app: webapp-django
@@ -33,6 +33,6 @@ spec:
                 tier: backend
         ports:
         - port: 8000
-          targetPort: 8000
+          nodePort: 30080
           name: djangoport
         type: NodePort
