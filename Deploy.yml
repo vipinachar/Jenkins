@@ -24,7 +24,7 @@ spec:
                            - containerPort: 8000
 ---
 apiVersion: v1
-kind: webapp-django
+kind: Service
 metadata:
   name: webapp-django
 spec:
