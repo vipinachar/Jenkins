@@ -19,7 +19,7 @@ spec:
                 spec:
                         containers: 
                         - name: django
-                          image: iad.ocir.io/idbmr8mmrb5k/backend:24
+                          image: iad.ocir.io/idbmr8mmrb5k/backend:image_build_number
                           ports:
                            - containerPort: 8000
 ---
