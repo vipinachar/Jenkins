@@ -22,4 +22,20 @@ spec:
                           image: iad.ocir.io/idbmr8mmrb5k/backend:image_build_number
                           ports:
                            - containerPort: 8000
+---
+apiVersion: v1
+kind: Service
+metadata: 
+        name: webapp-django
+spec:
+        selector:
+                app: webapp-django
+                tier: backend
+        ports:
+        - port: 8000
+          nodePort: 30080
+          name: djangoport
+        type: NodePort
+		
+		
 
