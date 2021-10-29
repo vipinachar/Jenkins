@@ -6,7 +6,7 @@ metadata:
                 app: webapp-django
                 tier: backend
 spec:
-        replicas: 5
+        replicas: 1
         selector:
                 matchLabels:
                         app: webapp-django
@@ -19,7 +19,7 @@ spec:
                 spec:
                         containers: 
                         - name: django
-                          image: iad.ocir.io/idbmr8mmrb5k/backend:image_build_number
+                          image: <image-name>
                           ports:
                            - containerPort: 8000
 ---
@@ -36,6 +36,3 @@ spec:
           nodePort: 30080
           name: djangoport
         type: NodePort
-		
-		
-
