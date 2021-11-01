@@ -3,12 +3,13 @@ pipeline
     agent any
     environment 
     {
-        REPO_NAME="backend"
-        OCIR="iad.ocir.io"
-        NAMESPACE="idbmr8mmrb5k"
+        IMAGE_NAME="backend"
+        //OCIR="iad.ocir.io"
+        //NAMESPACE="idbmr8mmrb5k"
         INSTANCE="129.213.88.192"
         GIT_USERNAME="vipinachar"
         GIT_APITOKEN="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"
+        DOCKER_USERNAME="vipinachar1998"
     }
     stages
     {
@@ -24,7 +25,7 @@ pipeline
             steps
             {
               
-                sh 'docker build -t ${OCIR}/${NAMESPACE}/${REPO_NAME}:${BUILD_NUMBER} .'
+                sh 'docker build -t ${DCKER_USERNAME}/${IMAGE_NAME}:${BUILD_NUMBER} .'
               
               
             }
@@ -33,26 +34,26 @@ pipeline
         {
             steps
             {
-                withCredentials([string(credentialsId: 'OCI_Password', variable: 'ociPassword')]) 
+                withCredentials([string(credentialsId: 'docker_hub_password', variable: 'docker_hub_password')])
                 {
-                     sh 'docker login ${OCIR} -u idbmr8mmrb5k/vipinachar2016@gmail.com -p ${ociPassword}'
+                    sh 'docker login -u ${DOCKER_USERNAME} -p ${docker_hub_password}'
                 }
               
             }
             
         } 
-        stage("Push the image to OCIR")
+        stage("Push the image to Dockerhub")
         {
             steps
             {
-                sh 'docker push ${OCIR}/${NAMESPACE}/${REPO_NAME}:${BUILD_NUMBER}'
+                sh 'docker push ${DOCKER_USERNAME}/${IMAGE_NAME}:${BUILD_NUMBER}'
             }
         }
         stage("Deploy the application on k8s")
         {
             steps
             {
-                
+       
                 sshagent(['oci_password_v1']) 
                 {
                     sh "sed -i 's/image_build_number/${BUILD_NUMBER}/' Deploy.yml"
