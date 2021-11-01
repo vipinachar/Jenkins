@@ -4,8 +4,6 @@ pipeline
     environment 
     {
         IMAGE_NAME="backend"
-        //OCIR="iad.ocir.io"
-        //NAMESPACE="idbmr8mmrb5k"
         INSTANCE="129.213.88.192"
         GIT_USERNAME="vipinachar"
         GIT_APITOKEN="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"
@@ -25,7 +23,7 @@ pipeline
             steps
             {
               
-                sh 'docker build -t ${DCKER_USERNAME}/${IMAGE_NAME}:${BUILD_NUMBER} .'
+                sh 'docker build -t ${DOCKER_USERNAME}/${IMAGE_NAME}:${BUILD_NUMBER} .'
               
               
             }
