@@ -22,11 +22,6 @@ spec:
                           image: vipinachar1998/backend:image_build_number
                           ports:
                            - containerPort: 8000
-                          resources:
-                                limits:
-                                        cpu: 2000m
-                                requests:
-                                        cpu: 1000m
 ---
 apiVersion: v1
 kind: Service
