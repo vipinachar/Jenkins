@@ -4,7 +4,7 @@ pipeline
     environment 
     {
         IMAGE_NAME="backend"
-        INSTANCE="129.213.88.192"
+        INSTANCE="150.136.53.239"
         GIT_USERNAME="vipinachar"
         GIT_APITOKEN="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"
         DOCKER_USERNAME="vipinachar1998"
